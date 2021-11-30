@@ -131,9 +131,9 @@ def create_input_files(dataset, karpathy_json_path, image_folder, captions_per_i
                 try:
                     img = np.array(Image.fromarray(img).resize((256, 256)))
                 except TypeError:
-                    print(img = imageio.imread(impaths[i-1]).shape)
+                    print(imageio.imread(impaths[i-1]).shape)
                     print(impaths[i-1])
-                    print(img = imageio.imread(impaths[i-1]))
+                    print(imageio.imread(impaths[i-1]))
                     print(img.shape)
                     print(path)
                     print(img)
