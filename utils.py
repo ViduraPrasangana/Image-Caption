@@ -124,8 +124,10 @@ def create_input_files(dataset, karpathy_json_path, image_folder, captions_per_i
                 # Read images
                 img = imageio.imread(impaths[i])
                 # img = imread(impaths[i])
+                grey = False
                 if len(img.shape) == 2:
                     # gray-scale
+                    grey = True
                     img = img[:, :, np.newaxis]
                     img = np.concatenate([img, img, img], axis=2)  # [256, 256, 1+1+1]
                 try:
@@ -137,6 +139,10 @@ def create_input_files(dataset, karpathy_json_path, image_folder, captions_per_i
                     print(img.shape)
                     print(path)
                     print(img)
+                    print(grey)
+                    print(imageio.imread(impaths[i]).shape)
+                    print(impaths[i-1])
+                    print(imageio.imread(impaths[i]))
                 # img = imresize(img, (256, 256))
                 img = img.transpose(2, 0, 1)
                 assert img.shape == (3, 256, 256)
