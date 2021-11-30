@@ -7,7 +7,7 @@ import torch
 from tqdm import tqdm
 from collections import Counter
 from random import seed, choice, sample
-import imageio
+import matplotlib.image as imageio
 from PIL import Image
 
 from eval_func.bleu.bleu import Bleu
