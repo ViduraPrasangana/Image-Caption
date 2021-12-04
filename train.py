@@ -15,6 +15,7 @@ from nltk.translate.bleu_score import corpus_bleu
 import argparse
 import codecs
 import numpy as np
+import tqdm
 
 
 def train(args, train_loader, encoder, decoder, criterion, encoder_optimizer, decoder_optimizer, epoch):
@@ -39,9 +40,10 @@ def train(args, train_loader, encoder, decoder, criterion, encoder_optimizer, de
     top5accs = AverageMeter()  # top5 accuracy
 
     start = time.time()
+    iter_wrapper = lambda x: tqdm(x, total=len(train_loader))
 
     # Batches
-    for i, (imgs, caps, caplens) in enumerate(train_loader):
+    for i, (imgs, caps, caplens) in iter_wrapper(enumerate(train_loader)):
         data_time.update(time.time() - start)
 
         # Move to GPU, if available
