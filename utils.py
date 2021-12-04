@@ -198,7 +198,7 @@ def create_input_files_2 (dataset, image_folder, captions_per_image, min_word_fr
         test_data = json.load(j)
     
     tokenizer = BertTokenizer.from_pretrained(
-            os.path.join(image_folder, "vocab.txt"),
+            "dataset/iu/vocab.txt",
             do_lower_case=True,
         )
     print(type(tokenizer))
