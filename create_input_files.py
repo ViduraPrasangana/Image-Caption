@@ -6,7 +6,7 @@ import os
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Image_Captioning')
-    parser.add_argument('--dataset', default="coco", help='Default MSCOCO 14 Dataset.')
+    parser.add_argument('--dataset', default="iu", help='Default MSCOCO 14 Dataset.')
     parser.add_argument('--karpathy_json_path', default="./dataset/caption_dataset/dataset_coco.json",
                         help='path of captions dataset.')
     parser.add_argument('--image_folder', default="./dataset/iu/image/images_normalized", help='path of image dataset.')

@@ -201,6 +201,8 @@ def create_input_files_2 (dataset, image_folder, captions_per_image, min_word_fr
             "bert-iu-xray",
             do_lower_case=True
         )
+    print(type(tokenizer))
+    print(tokenizer)
 
     # Read image paths and captions for each image
     train_image_paths = []
