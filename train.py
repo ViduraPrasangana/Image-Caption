@@ -15,7 +15,7 @@ from nltk.translate.bleu_score import corpus_bleu
 import argparse
 import codecs
 import numpy as np
-import tqdm
+from tqdm import tqdm
 
 
 def train(args, train_loader, encoder, decoder, criterion, encoder_optimizer, decoder_optimizer, epoch):
