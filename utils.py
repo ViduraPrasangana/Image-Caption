@@ -211,8 +211,13 @@ def create_input_files_2 (dataset, image_folder, captions_per_image, min_word_fr
     test_image_captions = []
     word_freq = Counter()
 
+    print("total {} training images".format(len(train_data)))
+    print("total {} testing images".format(len(test_data)))
+
     train_null = 0
     test_null = 0
+    train_empty = 0
+    test_empty = 0
     for img in train_data:
         captions = []
         caption = img['findings']
@@ -226,6 +231,8 @@ def create_input_files_2 (dataset, image_folder, captions_per_image, min_word_fr
             captions.append(caption)  # [[0], [1], [2], [3], [4]]
 
         if len(captions) == 0:
+            train_empty+=1
+            print(len(caption),caption)
             continue
 
         path = os.path.join(image_folder, img['filename']) 
@@ -246,6 +253,7 @@ def create_input_files_2 (dataset, image_folder, captions_per_image, min_word_fr
             captions.append(caption)  # [[0], [1], [2], [3], [4]]
 
         if len(captions) == 0:
+            test_empty+=1
             continue
 
         path = os.path.join(image_folder, img['filename']) 
@@ -256,8 +264,8 @@ def create_input_files_2 (dataset, image_folder, captions_per_image, min_word_fr
         test_image_paths.append(path)
         test_image_captions.append(captions)
     
-    print("{} null traning images".format(train_null))
-    print("{} null test images".format(test_null))
+    print("{} null {} empty traning images.".format(train_null,train_empty))
+    print("{} null {} empty test images".format(test_null,test_empty))
 
     # Sanity check
     assert len(train_image_paths) == len(train_image_captions)
