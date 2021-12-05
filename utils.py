@@ -211,10 +211,13 @@ def create_input_files_2 (dataset, image_folder, captions_per_image, min_word_fr
     test_image_captions = []
     word_freq = Counter()
 
+    train_null = 0
+    test_null = 0
     for img in train_data:
         captions = []
         caption = img['findings']
         if(caption == None):
+            train_null +=1
             continue
             # Update word frequency
         caption = tokenizer.tokenize(caption)
@@ -230,11 +233,11 @@ def create_input_files_2 (dataset, image_folder, captions_per_image, min_word_fr
         train_image_paths.append(path)
         train_image_captions.append(captions)
 
-
     for img in test_data:
         captions = []
         caption = img['findings']
         if(caption == None):
+            test_null +=1
             continue
             # Update word frequency
         caption = tokenizer.tokenize(caption)
@@ -252,6 +255,9 @@ def create_input_files_2 (dataset, image_folder, captions_per_image, min_word_fr
         
         test_image_paths.append(path)
         test_image_captions.append(captions)
+    
+    print("{} null traning images".format(train_null))
+    print("{} null test images".format(test_null))
 
     # Sanity check
     assert len(train_image_paths) == len(train_image_captions)
@@ -308,16 +314,12 @@ def create_input_files_2 (dataset, image_folder, captions_per_image, min_word_fr
 
                 img = imageio.imread(impaths[i])
                 # img = imread(impaths[i])
-                print(np.max(img),np.min(img))
 
                 if len(img.shape) == 2:
                     # gray-scale
                     img = img[:, :, np.newaxis]
                     img = np.concatenate([img, img, img], axis=2)  # [256, 256, 1+1+1]
-                print(img.shape)
-                print(img)
                 img = np.array(Image.fromarray((img * 255).astype(np.uint8)).resize((256, 256)))
-                print(img.shape)
                 # img = imresize(img, (256, 256))
                 img = img.transpose(2, 0, 1)
                 assert img.shape == (3, 256, 256)
