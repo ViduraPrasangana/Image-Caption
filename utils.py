@@ -201,8 +201,6 @@ def create_input_files_2 (dataset, image_folder, captions_per_image, min_word_fr
             "dataset/iu/vocab.txt",
             do_lower_case=True,
         )
-    print(type(tokenizer))
-    print(tokenizer)
 
     # Read image paths and captions for each image
     train_image_paths = []
@@ -316,6 +314,7 @@ def create_input_files_2 (dataset, image_folder, captions_per_image, min_word_fr
                     img = img[:, :, np.newaxis]
                     img = np.concatenate([img, img, img], axis=2)  # [256, 256, 1+1+1]
                 print(img.shape)
+                print(img)
                 img = np.array(Image.fromarray(img).resize((256, 256)))
                 print(img.shape)
                 # img = imresize(img, (256, 256))
