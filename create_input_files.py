@@ -13,7 +13,7 @@ if __name__ == '__main__':
     parser.add_argument('--captions_per_image', type=int, default=1, help='How many captions each image has?')
     parser.add_argument('--min_word_freq', type=int, default=5, help='the minimum frequency of words')
     parser.add_argument('--output_folder', default='./dataset/generated_data', help='output filepath.')
-    parser.add_argument('--max_len', type=int, default=50, help='the maximum length of each caption.')
+    parser.add_argument('--max_len', type=int, default=100, help='the maximum length of each caption.')
     args = parser.parse_args()
 
     if not (os.path.exists(args.output_folder) and os.path.isdir(args.output_folder)):
