@@ -137,6 +137,7 @@ class Decoder(nn.Module):
         embedding_table = np.array([get_posi_angle_vec(pos_i) for pos_i in range(52)])
         embedding_table[:, 0::2] = np.sin(embedding_table[:, 0::2])  # dim 2i
         embedding_table[:, 1::2] = np.cos(embedding_table[:, 1::2])  # dim 2i+1
+        print("embedding",torch.FloatTensor(embedding_table).to(device).shape )
         return torch.FloatTensor(embedding_table).to(device)
 
     def get_attn_pad_mask(self, seq_q, seq_k):
