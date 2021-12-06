@@ -62,7 +62,7 @@ def caption_image_beam_search(args, encoder, decoder, image_path, word_map):
     if args.decoder_mode == "lstm":
         k_prev_words = torch.LongTensor([[word_map['<start>']]] * k).to(device)  # (k, 1)
     elif args.decoder_mode == "transformer":
-        k_prev_words = torch.LongTensor([[word_map['<start>']] * 52] * k).to(device)  # (k, 52)
+        k_prev_words = torch.LongTensor([[word_map['<start>']] * 202] * k).to(device)  # (k, 52) # 52->202
 
     # Tensor to store top k sequences; now they're just <start>
     seqs = torch.LongTensor([[word_map['<start>']]] * k).to(device)  # (k, 1)
@@ -91,7 +91,7 @@ def caption_image_beam_search(args, encoder, decoder, image_path, word_map):
             h, c = decoder.lstm(torch.cat([embeddings, awe], dim=1), (h, c))  # (s, decoder_dim)
             scores = decoder.fc(h)  # (s, vocab_size)
         elif args.decoder_mode == "transformer":
-            cap_len = torch.LongTensor([52]).repeat(k, 1)  # [s, 1]
+            cap_len = torch.LongTensor([202]).repeat(k, 1)  # [s, 1] # 52->202
             scores, _, _, alpha_dict, _ = decoder(encoder_out, k_prev_words, cap_len)
             scores = scores[:, step - 1, :].squeeze(1)  # [s, 1, vocab_size] -> [s, vocab_size]
             # choose the last layer, transformer decoder is comosed of a stack of 6 identical layers.
