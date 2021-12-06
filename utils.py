@@ -232,7 +232,6 @@ def create_input_files_2 (dataset, image_folder, captions_per_image, min_word_fr
 
         if len(captions) == 0:
             train_empty+=1
-            print(len(caption),caption)
             continue
 
         path = os.path.join(image_folder, img['filename']) 

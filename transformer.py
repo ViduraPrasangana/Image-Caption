@@ -180,7 +180,7 @@ class Decoder(nn.Module):
         # 0 0 0 0 2 2
         # 0 0 0 0 1 2
         # 0 0 0 0 1 1
-        dec_outputs = self.tgt_emb(encoded_captions) + self.pos_emb(torch.LongTensor([list(range(52))]*batch_size).to(device))
+        dec_outputs = self.tgt_emb(encoded_captions) + self.pos_emb(torch.LongTensor([list(range(202))]*batch_size).to(device))
         dec_outputs = self.dropout(dec_outputs)
         dec_self_attn_pad_mask = self.get_attn_pad_mask(encoded_captions, encoded_captions)
         dec_self_attn_subsequent_mask = self.get_attn_subsequent_mask(encoded_captions)
