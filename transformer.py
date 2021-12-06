@@ -134,10 +134,9 @@ class Decoder(nn.Module):
         def get_posi_angle_vec(position):
             return [cal_angle(position, hid_idx) for hid_idx in range(embed_dim)]
 
-        embedding_table = np.array([get_posi_angle_vec(pos_i) for pos_i in range(52)])
+        embedding_table = np.array([get_posi_angle_vec(pos_i) for pos_i in range(202)]) # 52->202
         embedding_table[:, 0::2] = np.sin(embedding_table[:, 0::2])  # dim 2i
         embedding_table[:, 1::2] = np.cos(embedding_table[:, 1::2])  # dim 2i+1
-        print("embedding",torch.FloatTensor(embedding_table).to(device).shape,embedding_table)
         return torch.FloatTensor(embedding_table).to(device)
 
     def get_attn_pad_mask(self, seq_q, seq_k):
@@ -181,7 +180,7 @@ class Decoder(nn.Module):
         # 0 0 0 0 2 2
         # 0 0 0 0 1 2
         # 0 0 0 0 1 1
-        dec_outputs = self.tgt_emb(encoded_captions) + self.pos_emb(torch.LongTensor([list(range(202))]*batch_size).to(device))
+        dec_outputs = self.tgt_emb(encoded_captions) + self.pos_emb(torch.LongTensor([list(range(202))]*batch_size).to(device)) # 52->202
         dec_outputs = self.dropout(dec_outputs)
         dec_self_attn_pad_mask = self.get_attn_pad_mask(encoded_captions, encoded_captions)
         dec_self_attn_subsequent_mask = self.get_attn_subsequent_mask(encoded_captions)
