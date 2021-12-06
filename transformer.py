@@ -186,9 +186,9 @@ class Decoder(nn.Module):
         dec_self_attn_subsequent_mask = self.get_attn_subsequent_mask(encoded_captions)
         dec_self_attn_mask = torch.gt((dec_self_attn_pad_mask + dec_self_attn_subsequent_mask), 0)
         if self.attention_method == "ByPixel":
-            dec_enc_attn_mask = (torch.tensor(np.zeros((batch_size, 52, 196))).to(device) == torch.tensor(np.ones((batch_size, 52, 196))).to(device))
+            dec_enc_attn_mask = (torch.tensor(np.zeros((batch_size, 202, 196))).to(device) == torch.tensor(np.ones((batch_size, 202, 196))).to(device)) # 52->202
         elif self.attention_method == "ByChannel":
-            dec_enc_attn_mask = (torch.tensor(np.zeros((batch_size, 52, channel_number))).to(device) == torch.tensor(np.ones((batch_size, 52, channel_number))).to(device))
+            dec_enc_attn_mask = (torch.tensor(np.zeros((batch_size, 202, channel_number))).to(device) == torch.tensor(np.ones((batch_size, 202, channel_number))).to(device)) # 52->202
 
         dec_self_attns, dec_enc_attns = [], []
         for layer in self.layers:
