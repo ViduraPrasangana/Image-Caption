@@ -127,6 +127,7 @@ def caption_image_beam_search(args, encoder, decoder, image_path, word_map):
                            next_word != word_map['<end>']]
         complete_inds = list(set(range(len(next_word_inds))) - set(incomplete_inds))
         # Set aside complete sequences
+        print("complete_inds",complete_inds)
         if len(complete_inds) > 0:
             Caption_End = True
             complete_seqs.extend(seqs[complete_inds].tolist())
@@ -155,7 +156,7 @@ def caption_image_beam_search(args, encoder, decoder, image_path, word_map):
             break
         step += 1
 
-    assert Caption_End
+    #assert Caption_End
     i = complete_seqs_scores.index(max(complete_seqs_scores))
     seq = complete_seqs[i]
     alphas = complete_seqs_alpha[i]
