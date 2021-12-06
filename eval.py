@@ -165,7 +165,7 @@ def evaluate_transformer(args):
             encoder_out = encoder_out.expand(k, enc_image_size, enc_image_size, encoder_dim)  # [k, enc_image_size, enc_image_size, encoder_dim]
             # Tensor to store top k previous words at each step; now they're just <start>
             # Important: [1, 52] (eg: [[<start> <start> <start> ...]]) will not work, since it contains the position encoding
-            k_prev_words = torch.LongTensor([[word_map['<start>']]*52] * k).to(device)  # (k, 52)
+            k_prev_words = torch.LongTensor([[word_map['<start>']]*202] * k).to(device)  # (k, 52) # 52->202
             # Tensor to store top k sequences; now they're just <start>
             seqs = torch.LongTensor([[word_map['<start>']]] * k).to(device)  # (k, 1)
             # Tensor to store top k sequences' scores; now they're just 0
@@ -180,7 +180,7 @@ def evaluate_transformer(args):
             while True:
                 # print("steps {} k_prev_words: {}".format(step, k_prev_words))
                 # cap_len = torch.LongTensor([52]).repeat(k, 1).to(device) may cause different sorted results on GPU/CPU in transformer.py
-                cap_len = torch.LongTensor([52]).repeat(k, 1)  # [s, 1]
+                cap_len = torch.LongTensor([202]).repeat(k, 1)  # [s, 1] # 52->202
                 scores, _, _, _, _ = decoder(encoder_out, k_prev_words, cap_len)
                 scores = scores[:, step-1, :].squeeze(1)  # [s, 1, vocab_size] -> [s, vocab_size]
                 scores = F.log_softmax(scores, dim=1)
